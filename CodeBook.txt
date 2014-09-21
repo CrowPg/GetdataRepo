@@ -32,3 +32,6 @@ Variables found in step5.txt:
 	- Activity: Performed activity
 	- each feature's average value
 		for instance, tBodyAcc-mean()-X is the average value for the mean values of all the recorded BodyAcc on the X axis
+
+Note:
+	Features were normalized and bounded within [-1,1].
