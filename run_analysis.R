@@ -1,4 +1,5 @@
-libray(plyr)
+library(plyr)
+library(reshape2)
 
 features <- read.table("features.txt", stringsAsFactors = F)
 labels <- c("Activity", "Subject", features[,2])
@@ -15,10 +16,6 @@ MeanAndStdSet <- cbind("Subject" = Set$Subject,
 levels(MeanAndStdSet$Activity) <- activities
 
 meltedMaSSet <- melt(MeanAndStdSet, id = names(MeanAndStdSet)[1:2], measure.vars = names(MeanAndStdSet)[3:length(MeanAndStdSet)])
-ActivityMeans <- dcast(meltedMaSSet, Activity~variable, mean)
-names(ActivityMeans)[1] = "ActivityOrSubject"
-SubjectMeans <- dcast(meltedMaSSet, Subject~variable, mean)
-names(SubjectMeans)[1] = "ActivityOrSubject"
-SubjectMeans$ActivityOrSubject<-as.factor(SubjectMeans$ActivityOrSubject)
-Final <- rbind(ActivityMeans, SubjectMeans)
+Final <- dcast(meltedMaSSet, Subject + Activity~variable, mean)
+write.table(Final, "step5.txt", row.name = F)
 
